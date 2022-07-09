@@ -15,7 +15,7 @@ from flask import (
     redirect)
 
 engine = create_engine("sqlite:///resources/scrape_db.sqlite")
-kaggle = create_engine("sqlite:///resources/cis_2018_lite.sqlite")
+kaggle = create_engine("sqlite:///resources/cis_2018_simple.sqlite")
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -52,6 +52,10 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/")
+def about():
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.run()
