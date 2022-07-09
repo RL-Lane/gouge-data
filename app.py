@@ -2,7 +2,7 @@
 # from models import create_classes
 import os
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func, or_
+from sqlalchemy import create_engine, func, or_, inspect
 from sqlalchemy.ext.automap import automap_base
 
 
@@ -65,20 +65,36 @@ def kaggle():
     
     # Perform a query to retrieve the data and precipitation scores
     kaggle_list = kaggle_engine.execute("SELECT * FROM sales").fetchall()
-    kaggle_list
-    kaggle_dict = {}
-    for (key, value) in kaggle_list:
-        if key in kaggle_dict:
-            kaggle_dict[key].append(value)
-        else:
-            kaggle_dict[key] = [value]
-    kaggle_dict
-    
+   
+    inspector = inspect(kaggle_engine)
+    columns = inspector.get_columns('sales')
+    column_names=[]
+    for c in columns:
+        column_names.append(c['name'])
+    # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for k in kaggle_list:
+        temp_dict={}
+    #this is where we assign column rows to their corresponding column names
+        for c in range(0,len(column_names)):
+            temp_dict[column_names[c]]=k[c]
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+
+
     # Sort the dataframe by date
     
     session.close()
     return (
-        jsonify (kaggle_dict)
+        jsonify (output_list)
     )
 
 
