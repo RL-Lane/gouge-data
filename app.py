@@ -14,44 +14,73 @@ from flask import (
     request,
     redirect)
 
-engine = create_engine("sqlite:///resources/scrape_db.sqlite")
-kaggle = create_engine("sqlite:///resources/cis_2018_lite.sqlite")
+scrape_engine = create_engine("sqlite:///resources/scrape_db.sqlite")
+kaggle_engine = create_engine("sqlite:///resources/cis_2018_lite.sqlite")
 
 # reflect an existing database into a new model
-Base = automap_base()
-# reflect the tables
-Base.prepare(engine, reflect=True)
-
-# Save reference to the table
-print(Base.classes.keys())
-
-msrp = Base.classes.car_scrape
-# Actors = Base.classes.actors
-
-#################################################
-# Flask Setup
-#################################################
-app = Flask(__name__)
-
+Scrape_Base = automap_base()
 Kaggle_Base = automap_base()
+
 # reflect the tables
-Kaggle_Base.prepare(kaggle, reflect=True)
+Scrape_Base.prepare(scrape_engine, reflect=True)
+Kaggle_Base.prepare(kaggle_engine, reflect=True)
 
 # Save reference to the table
-print(Kaggle_Base.classes.keys())
+# print(Scrape_Base.classes.keys())
+# print(Kaggle_Base.classes.keys())
 
-kaggle_data = Kaggle_Base.classes.sales
+scrape_data = Scrape_Base.classes.car_scrape
+kaggle_data = Kaggle_Base.classes
 # Actors = Base.classes.actors
 
 #################################################
 # Flask Setup
 #################################################
 app = Flask(__name__)
-
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+@app.route("/api")
+def welcome():
+    """List all available api routes."""
+    return (
+        f"Available Routes:<br/>"
+        f"<a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/>"
+        f"<a href='/api/v1.0/stations'>/api/v1.0/stations</a><br/>"
+        f"<a href='/api/v1.0/tobs'>/api/v1.0/tobs</a><br/>"
+        f"<a>/api/v1.0/&ltstart></a><br/>"
+        "/api/v1.0/&ltstart>/&ltend> , dates must be formatted as YYYY-MM-DD (e.g. 1994-04-03)</a><br/>"
+    )
+
+@app.route("/api/v1.0/kaggle")
+def precipitation():
+    """Returns all recorded values of car sale date via kaggle."""
+    # Create our session (link) from Python to the DB
+    session = Session(kaggle_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    kaggle_list = session.query(kaggle_data.sales).all()
+    kaggle_list
+    kaggle_dict = {}
+    for (key, value) in kaggle_list:
+        if key in kaggle_dict:
+            kaggle_dict[key].append(value)
+        else:
+            kaggle_dict[key] = [value]
+    kaggle_dict
+    
+    # Sort the dataframe by date
+    
+    session.close()
+    return (
+        jsonify (kaggle_dict)
+    )
+
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
