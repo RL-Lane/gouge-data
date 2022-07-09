@@ -1,0 +1,103 @@
+/* Visualization Page Header Formatting */
+.plots_header {
+    background: linear-gradient(to right, white,rgb(231, 201, 173),rgb(233, 127, 40));
+    padding:2em;
+    text-align: center;
+}
+
+/* navbar formatting */
+.navbar {
+    background: linear-gradient(to right, white,rgb(231, 201, 173),rgb(233, 127, 40));
+    opacity: 0.8;
+}
+
+/* navbar tabs formatting */
+#nav_tabs {
+    font-weight: bold;
+    font-size: larger;
+    color:rgb(11, 11, 185);
+    
+}
+
+
+
+/* formatting of cards on carsanalyzed.html */
+#card_format {
+    background-color: rgb(236, 222, 208);
+    color:rgb(11, 11, 185);
+    padding:1em;
+    margin-right:2%;
+    text-align: left;
+    font-size: 15px;
+    font-weight:700;
+}
+
+/* formatting of general characteristics of carousel */
+#carouselExampleIndicators {
+    width: 800px;
+    margin-left: 19%;
+    padding: 1em;
+    background: rgb(236, 222, 208) ;
+}
+
+/* background for each html page */
+#background {
+    background: beige;
+}
+
+/* Styling for Jeep car title in carousel */
+#carousel_jeep_title {
+    color: rgb(11, 11, 185);
+    font-size: 40px;
+    margin-bottom: 77%;
+}
+/* Styling for Ford car title in carousel */
+#carousel_ford_title {
+    color: rgb(11, 11, 185);
+    font-size: 40px;
+    margin-bottom: 68%;
+}
+/* Styling for Chevy title in carousel */
+#carousel_chevy_title {
+    color: rgb(11, 11, 185);
+    font-size: 40px;
+    margin-bottom: 85%;
+}
+/* Styling for GMC car title in carousel */
+#carousel_gmc_title {
+    color: rgb(11, 11, 185);
+    font-size: 40px;
+    margin-bottom: 85%;
+}
+/* Styling for Toyota car title in carousel */
+#carousel_toyota_title {
+    color: rgb(11, 11, 185);
+    font-size: 40px;
+    margin-bottom: 85%;
+}
+
+.home_image {
+    width: 90%;
+    margin-left: 6%;
+    border: 2px solid rgb(11, 11, 185) ;
+    border-radius: 5px;
+}
+
+.home_page_header {
+    text-align: center;
+    color:  rgb(11, 11, 185) ;
+}
+
+#accordion_layout {
+    background:  beige;
+    margin-left: 5%;
+    margin-top: 5%;
+}   
+#accordion_dropdown {
+    background: rgb(238, 150, 78) ;
+}
+
+#button_accord {
+    background: rgb(11, 11, 185);
+    color:white;
+}
