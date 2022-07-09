@@ -15,7 +15,7 @@ from flask import (
     redirect)
 
 scrape_engine = create_engine("sqlite:///resources/scrape_db.sqlite")
-kaggle_engine = create_engine("sqlite:///resources/cis_2018_lite.sqlite")
+kaggle_engine = create_engine("sqlite:///resources/cis_2018.sqlite")
 
 # reflect an existing database into a new model
 Scrape_Base = automap_base()
@@ -55,7 +55,7 @@ def welcome():
     )
 
 @app.route("/api/v1.0/kaggle")
-def precipitation():
+def kaggle():
     """Returns all recorded values of car sale date via kaggle."""
     # Create our session (link) from Python to the DB
     session = Session(kaggle_engine)
@@ -64,7 +64,7 @@ def precipitation():
     # sel = [kaggle_data]
     
     # Perform a query to retrieve the data and precipitation scores
-    kaggle_list = session.query(kaggle_data.sales).all()
+    kaggle_list = kaggle_engine.execute("SELECT * FROM sales").fetchall()
     kaggle_list
     kaggle_dict = {}
     for (key, value) in kaggle_list:
