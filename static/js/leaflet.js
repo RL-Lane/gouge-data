@@ -1,4 +1,23 @@
-var queryUrl = "api/v1.0/scraped"
+var scrapedMakeUrl = "https://gouge-data.herokuapp.com/api/v1.0/scraped/makes"
+
+d3.json(scrapedMakeUrl).then((data) => {
+  // console.log(data.names)
+
+  let dropdown = d3.select("#selscrapemake");
+
+  data.make.forEach((id) => {
+      // console.log(id);
+
+      dropdown.append("option").text(id).property("value", id);
+  });
+
+  // BuildCharts(data.names[0]);
+})
+
+function optionChanged (selected) {
+  // console.log(selected);
+  BuildCharts(selected);
+}
 
 // Perform a GET request to the query URL/
 d3.json(queryUrl).then(function (data) {

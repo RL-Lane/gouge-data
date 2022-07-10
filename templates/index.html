@@ -10,6 +10,9 @@
         <meta name="author" content="" />
         <title>Vehicle Gouge</title>
         <!-- Favicon-->
+
+
+        <!-- start bootstrap / styling -->
         <link rel="icon" type="image/x-icon" href="../static/assets/car_icon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -18,7 +21,11 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        
+        <!-- end bootstrap / styling -->
+
+
+
+
         <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -31,8 +38,25 @@
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
         <!-- <link href="css/styles.css" rel="stylesheet" /> -->
+
+
+
+
         <!-- load jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
+
+
+        <!-- import D3.js -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+
+        <!-- import local leaflet.js -->
+        <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+
+
+
+
     </head>
         
     <body id="home">
@@ -193,7 +217,7 @@
 
 
         <!-- Callout-->
-        <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Kaggle Analysis</h2><br>
+        
         <!-- Leaflet Map-->
         <section class="content-section  text-center" >
             
@@ -207,7 +231,7 @@
         </section>
         <script>
             $(function(){
-            $("#map-placeholder").load("{{ url_for('static', filename='plotly.html') }}");
+            $("#map-placeholder").load("{{ url_for('static', filename='map.html') }}");
             });
             </script>
             <!--end of map.html-->
