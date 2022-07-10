@@ -1,4 +1,4 @@
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+var queryUrl = "api/v1.0/scraped"
 
 // Perform a GET request to the query URL/
 d3.json(queryUrl).then(function (data) {
@@ -14,7 +14,7 @@ d3.json(queryUrl).then(function (data) {
     // Define a function that we want to run once for each feature in the features array.
     // Give each feature a popup that describes the place and time of the earthquake.
     function onEachFeature(feature, layer) {
-      layer.bindPopup(`<h3>${feature.properties.place}</h3><hr>
+      layer.bindPopup(`<h3>${feature.properties.dealeraddress}</h3><hr>
                       <strong>Depth: ${feature.geometry.coordinates[2]} km</strong><br>
                       Magnitude: ${feature.properties.mag}<br>
                       <h6>${new Date(feature.properties.time)}</h6>`)
