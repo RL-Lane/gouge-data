@@ -46,9 +46,10 @@ def home():
 def welcome():
     """List all available api routes."""
     return (
-        f"Available Routes:<br/>"
-        f"<a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/>"
-        f"<a href='/api/v1.0/stations'>/api/v1.0/stations</a><br/>"
+        f"<h2>Available Routes:<h2/><hr>"
+        
+        f"<h4>Return first 1,000 of all results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
+        f"<a href='/api/v1.0/stations'>/api/v1.0/stations</a><br><br>"
         f"<a href='/api/v1.0/tobs'>/api/v1.0/tobs</a><br/>"
         f"<a>/api/v1.0/&ltstart></a><br/>"
         "/api/v1.0/&ltstart>/&ltend> , dates must be formatted as YYYY-MM-DD (e.g. 1994-04-03)</a><br/>"
@@ -79,7 +80,7 @@ def kaggle():
     # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
     output_list=[]
     # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
-    for k in kaggle_list:
+    for k in kaggle_list[0:1000]:
         temp_dict={}
     #this is where we assign column rows to their corresponding column names
         for c in range(0,len(column_names)):
