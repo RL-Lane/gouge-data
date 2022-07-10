@@ -251,7 +251,10 @@ def scrapemakes():
     # sel = [kaggle_data]
     
     # Perform a query to retrieve the data and precipitation scores
-    scrape_list = scrape_engine.execute("SELECT DISTINCT make FROM car_scrape").fetchall()
+    scrape_list_tuple = scrape_engine.execute("SELECT DISTINCT make FROM car_scrape").fetchall()
+    scrape_list = []
+    for sl in scrape_list_tuple:
+        scrape_list.append(sl[0])
    
     inspector = inspect(scrape_engine)
     columns = inspector.get_columns('car_scrape')
@@ -260,7 +263,6 @@ def scrapemakes():
         if c['name'] == 'make':
             column_names.append(c['name'])
     # column_names
-
 
 
 
