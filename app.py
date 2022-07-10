@@ -52,7 +52,7 @@ def welcome():
         f"<h4>Return first 1,000 of all results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
         f"<h4>Returns all unique makes in kaggle:</h4><a href='/api/v1.0/kaggle/makes'>/api/v1.0/kaggle/makes</a><br/><hr><br>"
         f"<h4>Returns all results from Cargurus Scraped Data:<h4><a href='/api/v1.0/scraped'>/api/v1.0/scraped</a><br/><hr><br>"
-        f"<a>/api/v1.0/&ltstart></a><br/>"
+        f"<h4>Returns all unique makes in Cargurus Scraped Data:</h4><a href='/api/v1.0/scraped/makes'>/api/v1.0/scraped/makes</a><br/><hr><br>"
         "/api/v1.0/&ltstart>/&ltend> , dates must be formatted as YYYY-MM-DD (e.g. 1994-04-03)</a><br/>"
     )
 
@@ -97,6 +97,14 @@ def kaggle():
     return (
         jsonify (output_list)
     )
+
+
+
+
+
+
+
+
 
 # LIST ALL MAKES FROM KAGGLE DATA
 @app.route("/api/v1.0/kaggle/makes")
@@ -145,6 +153,12 @@ def kagglemakes():
 
 
 
+
+
+
+
+
+
 # THIS IS THE ROUTE THAT DISPLAYS ALL OF THE CARGURUS SCRAPED DATA
 @app.route("/api/v1.0/scraped")
 def scraped():
@@ -188,6 +202,66 @@ def scraped():
     return (
         jsonify (output_list)
     )
+
+
+
+
+
+
+
+
+
+ # LIST ALL MAKES FROM CAR SCRAPED DATA
+@app.route("/api/v1.0/scraped/makes")
+def scrapemakes():
+    """Returns all recorded values of car sale date via scraped_db."""
+    # Create our session (link) from Python to the DB
+    session = Session(scrape_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    scrape_list = scrape_engine.execute("SELECT DISTINCT make FROM car_scrape").fetchall()
+   
+    inspector = inspect(scrape_engine)
+    columns = inspector.get_columns('car_scrape')
+    column_names=[]
+    for c in columns:
+        if c['name'] == 'make':
+            column_names.append(c['name'])
+    # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    for k in scrape_list:
+        temp_dict={}
+    #this is where we assign column rows to their corresponding column names
+        for c in range(0,len(column_names)):
+            temp_dict[column_names[c]]=k[c]
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+
+
+    # Sort the dataframe by date
+    
+    session.close()
+    return (
+        jsonify (output_list)
+    )
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
