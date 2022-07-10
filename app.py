@@ -265,22 +265,30 @@ def scrapemakes():
 
 
     # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
-    output_list=[]
-    for k in scrape_list:
-        temp_dict={}
+
+    # output_list=[]
+    # for k in scrape_list:
+    #     temp_dict={}
+
     #this is where we assign column rows to their corresponding column names
-        for c in range(0,len(column_names)):
-            temp_dict[column_names[c]]=k[c]
+
+        # for c in range(0,len(column_names)):
+        #     temp_dict[column_names[c]]=k[c]
+
     #append temp_dict to output_list
-        output_list.append(temp_dict)
-    output_list
+
+    #     output_list.append(temp_dict)
+    # output_list
 
 
     # Sort the dataframe by date
 
     session.close()
     return (
-        jsonify (output_list)
+        # jsonify (output_list)
+        jsonify ({
+            'make': scrape_list
+        })
     )
 
 
