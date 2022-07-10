@@ -4,6 +4,7 @@ import os
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, or_, inspect
 from sqlalchemy.ext.automap import automap_base
+from datetime import date
 
 
 
@@ -196,11 +197,39 @@ def scraped():
 
 
 
-    # Sort the dataframe by date
+    # create list of features for geojson
+    features = []
+    for o in output_list:
+        f_dict = {
+            "type": "Feature",
+            "properties": o,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    o['lat'],
+                    o['lng']
+                ],
+            },
+            'id': o['vin']
+        }
+        features.append(f_dict)
+
+    output_dict = {
+        "type": "FeatureCollection",
+        'metadata': {
+            "generated": date.today(),
+            "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped",
+            "title": "gouge-data all scraped cars",
+            "status": 200,
+            "api": "1.0",
+            "count": len(output_list)
+        },
+        'features': features
+    }
     
     session.close()
     return (
-        jsonify (output_list)
+        jsonify (output_dict)
     )
 
 
@@ -247,9 +276,8 @@ def scrapemakes():
     output_list
 
 
-
     # Sort the dataframe by date
-    
+
     session.close()
     return (
         jsonify (output_list)
