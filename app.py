@@ -42,6 +42,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+# LIST ALL AVAILABLE ROUTES
 @app.route("/api")
 def welcome():
     """List all available api routes."""
@@ -49,12 +50,14 @@ def welcome():
         f"<h2>Available Routes:<h2/><hr>"
         
         f"<h4>Return first 1,000 of all results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
-        f"<a href='/api/v1.0/stations'>/api/v1.0/stations</a><br><br>"
+        f"<h4>Returns all unique makes in kaggle:</h4><a href='/api/v1.0/kaggle/makes'>/api/v1.0/kaggle/makes</a><br/><hr><br>"
         f"<a href='/api/v1.0/tobs'>/api/v1.0/tobs</a><br/>"
         f"<a>/api/v1.0/&ltstart></a><br/>"
         "/api/v1.0/&ltstart>/&ltend> , dates must be formatted as YYYY-MM-DD (e.g. 1994-04-03)</a><br/>"
     )
 
+
+# LIST 1ST 1000 VEHICLES OF ALL.  157,000 ROWS TAKES TOO LONG TO BUILD
 @app.route("/api/v1.0/kaggle")
 def kaggle():
     """Returns all recorded values of car sale date via kaggle."""
@@ -97,6 +100,52 @@ def kaggle():
     return (
         jsonify (output_list)
     )
+
+# LIST ALL MAKES
+@app.route("/api/v1.0/kaggle/makes")
+def kagglemakes():
+    """Returns all recorded values of car sale date via kaggle."""
+    # Create our session (link) from Python to the DB
+    session = Session(kaggle_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    kaggle_list = kaggle_engine.execute("SELECT DISTINCT make FROM sales").fetchall()
+   
+    inspector = inspect(kaggle_engine)
+    columns = inspector.get_columns('sales')
+    column_names=[]
+    for c in columns:
+        if c['name'] == 'make':
+            column_names.append(c['name'])
+    # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for k in kaggle_list[0:1000]:
+        temp_dict={}
+    #this is where we assign column rows to their corresponding column names
+        for c in range(0,len(column_names)):
+            temp_dict[column_names[c]]=k[c]
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+
+
+    # Sort the dataframe by date
+    
+    session.close()
+    return (
+        jsonify (output_list)
+    )
+
 
 
 if __name__ == "__main__":
