@@ -118,7 +118,7 @@ def kagglemakes():
     # sel = [kaggle_data]
     
     # Perform a query to retrieve the data and precipitation scores
-    kaggle_list = kaggle_engine.execute("SELECT DISTINCT make FROM sales").fetchall()
+    kaggle_list = kaggle_engine.execute("SELECT DISTINCT make FROM sales ORDER BY make").fetchall()
    
     inspector = inspect(kaggle_engine)
     columns = inspector.get_columns('sales')
@@ -143,13 +143,19 @@ def kagglemakes():
         output_list.append(temp_dict)
     output_list
 
+    make_list = []
+    for o in output_list:
+        make_list.append(o['make'])
+    
 
 
     # Sort the dataframe by date
     
     session.close()
     return (
-        jsonify (output_list)
+        jsonify ({
+            'make':make_list
+            })
     )
 
 
