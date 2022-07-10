@@ -1,7 +1,32 @@
-var queryUrl = "api/v1.0/scraped"
+// var scrapedMakeUrl = "https://gouge-data.herokuapp.com/api/v1.0/scraped/makes"
+var scrapedMakeUrl = "api/v1.0/scraped/makes"
+
+d3.json(scrapedMakeUrl).then((data) => {
+  // console.log(data.names)
+
+  let dropdown = d3.select("#selscrapemake");
+
+  data.make.forEach((id) => {
+      console.log(id);
+
+      dropdown.append("option").text(id).property("value", id);
+    // for (let i=0; i < 5; i++){
+    //   dropdown.append("option").text("blank").property("value", "blank");
+    // }
+
+    
+  });
+
+  // BuildCharts(data.names[0]);
+})
+
+function optionChanged (selected) {
+  // console.log(selected);
+  BuildCharts(selected);
+}
 
 // Perform a GET request to the query URL/
-d3.json(queryUrl).then(function (data) {
+d3.json(scrapedMakeUrl).then(function (data) {
 
     // console.log(data)
     // Once we get a response, send the data.features object to the createFeatures function.
@@ -108,9 +133,10 @@ d3.json(queryUrl).then(function (data) {
     // Create our map, giving it the streetmap and earthquakes layers to display on load.
     var myMap = L.map("map", {
       center: [
-        37.09, -95.71
+        31.113185, -96.88849
+
       ],
-      zoom: 5,
+      zoom: 7,
       layers: [street, earthquakes]
     });
   
@@ -159,7 +185,7 @@ d3.json(queryUrl).then(function (data) {
 
 let leafletmap = L.map("map", {
     center: [31.113185,	-96.88849],
-    zoom: 7
+    zoom: 8
   });
   
   // Adding a tile layer (the background map image) to our map:
