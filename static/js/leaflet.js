@@ -34,7 +34,7 @@ d3.json(scrapedMakeUrl).then(function (data) {
   });
   
   
-  function createFeatures(earthquakeData) {
+  function createFeatures(scrapeData) {
   
     // Define a function that we want to run once for each feature in the features array.
     // Give each feature a popup that describes the place and time of the earthquake.
@@ -56,9 +56,9 @@ d3.json(scrapedMakeUrl).then(function (data) {
     //   onEachFeature: onEachFeature
     // });
 
-    var earthquakes = L.geoJSON
+    var dealerships = L.geoJSON
     (
-      earthquakeData,//.filter(e => e.properties.mag < 1), 
+      scrapeData,//.filter(e => e.properties.mag < 1), 
       {
         pointToLayer: function (feature, latlng) 
           {
@@ -86,7 +86,7 @@ d3.json(scrapedMakeUrl).then(function (data) {
   };
   
     // Send our earthquakes layer to the createMap function/
-    createMap(earthquakes);
+    createMap(dealerships);
   }
 
 
@@ -108,7 +108,7 @@ d3.json(scrapedMakeUrl).then(function (data) {
   var depths = [30, 20, 15, 10, 5, 2.5, 0];
 
 
-  function createMap(earthquakes) {
+  function createMap(dealerships) {
   
     // Create the base layers.
     var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -127,7 +127,7 @@ d3.json(scrapedMakeUrl).then(function (data) {
   
     // Create an overlay object to hold our overlay.
     var overlayMaps = {
-      Earthquakes: earthquakes
+      Dealerships: dealerships
     };
   
     // Create our map, giving it the streetmap and earthquakes layers to display on load.
@@ -137,7 +137,7 @@ d3.json(scrapedMakeUrl).then(function (data) {
 
       ],
       zoom: 7,
-      layers: [street, earthquakes]
+      layers: [street, dealerships]
     });
   
     // Create a layer control.
