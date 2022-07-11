@@ -1,0 +1,16 @@
+-- groupby top msrp showing top ten msrp by specific make type
+
+SELECT 
+
+msrp,
+make
+FROM  sales
+
+WHERE  make  = "FORD"
+
+GROUP BY
+
+msrp 
+
+ORDER BY msrp DESC limit 10;
+

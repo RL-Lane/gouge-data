@@ -1,0 +1,13 @@
+SELECT 
+--select price from mobile_sales_details order by price desc limit 5
+msrp,
+make
+FROM  sales
+
+WHERE  make  = "FORD"
+
+GROUP BY
+
+msrp 
+
+ORDER BY msrp DESC limit 10;

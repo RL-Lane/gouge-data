@@ -1,3 +1,5 @@
+--can be used with each different car make from make drop down in plotly--
+
 SELECT 
 
 AVG(msrp),
