@@ -54,8 +54,12 @@ def welcome():
         f"<h4>Returns all unique makes in kaggle:</h4><a href='/api/v1.0/kaggle/makes'>/api/v1.0/kaggle/makes</a><br/><hr><br>"
         f"<h4>Returns all results from Cargurus Scraped Data:<h4><a href='/api/v1.0/scraped'>/api/v1.0/scraped</a><br/><hr><br>"
         f"<h4>Returns all unique makes in Cargurus Scraped Data:</h4><a href='/api/v1.0/scraped/makes'>/api/v1.0/scraped/makes</a><br/><hr><br>"
-        "/api/v1.0/&ltstart>/&ltend> , dates must be formatted as YYYY-MM-DD (e.g. 1994-04-03)</a><br/>"
+        f"<h4>Returns all data for a single make in Cargurus Scraped Data:</h4> /api/v1.0/scraped/makes/<brand><br/><br>\
+            Brand must exist in above referenced makes list<hr>"
+       
     )
+
+
 
 
 # LIST 1ST 1000 VEHICLES OF ALL.  157,000 ROWS TAKES TOO LONG TO BUILD
