@@ -16,4 +16,14 @@ d3.json(kaggleMakeUrl).then((data) => {
     
   });
   // build charts here
+
+  var data = [
+    {
+      x: ['giraffes', 'orangutans', 'monkeys'],
+      y: [20, 14, 23],
+      type: 'bar'
+    }
+  ];
+  
+  Plotly.newPlot('plotly', data)
 })
