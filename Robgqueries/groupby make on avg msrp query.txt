@@ -1,0 +1,11 @@
+SELECT
+make,
+AVG(msrp)
+
+FROM
+sales
+
+GROUP BY
+
+make
+

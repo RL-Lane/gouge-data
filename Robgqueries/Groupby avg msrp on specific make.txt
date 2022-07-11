@@ -1,0 +1,11 @@
+SELECT 
+
+AVG(msrp),
+make
+FROM  sales
+
+WHERE  make  = "FORD"
+
+GROUP BY
+
+msrp
