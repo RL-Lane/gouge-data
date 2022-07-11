@@ -1,0 +1,11 @@
+SELECT 
+	vin,
+	dealername, 
+	COUNT (vin) AS 'count',
+	lat,
+	lng,
+	CAST(dealersprice AS FLOAT) / CAST (msrp AS FLOAT) AS 'gougescore'
+FROM car_scrape 
+-- WHERE make = 'Toyota' 
+GROUP BY dealername
+ORDER BY dealername
