@@ -50,6 +50,7 @@
 
         <!-- import local leaflet.js -->
         <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/plotly.js') }}"></script>
 
 
 
@@ -202,7 +203,7 @@
         <div class="container">
             <div class="row">
               <div class="col-md-12 jumbotron text-center">
-                <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Cars by Dealer</h2><br>
+                <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Cars by Dealer</h2><br>
                 <p>Use the interactive charts below to explore the dataset</p>
               </div>
             </div>
@@ -225,7 +226,7 @@
         <!-- plotly charts-->
         <section class="content-section  text-center" id="map">
             <!-- actual map located here! -->
-          <!-- <div id="map"></div> -->
+          
           </div> 
         </section>
 
@@ -236,7 +237,39 @@
 
 
 
+        <!-- map section titleblock & menus -->
+        <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Distribution of Data by Texas Dealer</h2><br>
+        <div class="container">
+            <div class="row">
+              <div class="col-md-12 jumbotron text-center">
 
+                <!-- nav bar link -->
+                <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Cars by Dealer</h2><br>
+                <p>Use the interactive charts below to explore the dataset</p>
+              </div>
+            </div>
+            <div class="row">
+
+              <!-- selector 1 -->
+              <div class="col-md-3">
+                <div class="well">
+                  <h5>Vehicle Make:</h5>
+                  <select id="sel_kaggle_make" onchange="optionChanged(this.value)">
+                    <!-- <option>select</option> -->
+                  </select>
+                </div>
+              </div>
+              <!-- end selector 1 -->
+
+              
+            </div>
+          </div>
+        <!-- plotly charts-->
+        <section class="content-section  text-center" id="plotly">
+            <!-- actual plots located here! -->
+          
+          </div> 
+        </section>
 
 
 
