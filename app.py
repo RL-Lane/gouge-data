@@ -246,6 +246,115 @@ def scraped():
 
 
 
+
+
+
+    # THIS IS THE ROUTE THAT DISPLAYS ALL OF THE CARGURUS SCRAPED DATA FOR A SINGLE MAKE
+@app.route("/api/v1.0/scraped/makes/<brand>")
+def singlemake(brand):
+    """Returns all recorded values of car sale data via cargurus scraping."""
+    # Create our session (link) from Python to the DB
+    session = Session(scrape_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    scrape_list = scrape_engine.execute(f"SELECT * FROM car_scrape WHERE make = '{brand}'").fetchall()
+   
+    inspector = inspect(scrape_engine)
+    columns = inspector.get_columns('car_scrape')
+    column_names=[]
+    for c in columns:
+        column_names.append(c['name'])
+    # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for s in scrape_list:
+        temp_dict={}
+    #this is where we assign column rows to their corresponding column names
+        for c in range(0,len(column_names)):
+            temp_dict[column_names[c]]=s[c]
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+
+
+    # create list of features for geojson
+    features = []
+    for o in output_list:
+        f_dict = {
+            "type": "Feature",
+            "properties": o,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    o['lat'],
+                    o['lng']
+                ],
+            },
+            'id': o['vin']
+        }
+        features.append(f_dict)
+
+    output_dict = {
+        "type": "FeatureCollection",
+        'metadata': {
+            "generated": date.today(),
+            "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped",
+            "title": "gouge-data all scraped cars",
+            "status": 200,
+            "api": "1.0",
+            "count": len(output_list)
+        },
+        'features': features
+    }
+    
+    session.close()
+    return (
+        jsonify (output_dict)
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  # LIST ALL MAKES FROM CAR SCRAPED DATA
 @app.route("/api/v1.0/scraped/makes")
 def scrapemakes():
