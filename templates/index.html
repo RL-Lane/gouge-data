@@ -189,6 +189,15 @@
             </div>
     
         </section>
+
+
+
+
+
+
+
+
+        <!-- map section titleblock & menus -->
         <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Distribution of Data by Texas Dealer</h2><br>
         <div class="container">
             <div class="row">
@@ -198,6 +207,8 @@
               </div>
             </div>
             <div class="row">
+
+              <!-- selector 1 -->
               <div class="col-md-3">
                 <div class="well">
                   <h5>Vehicle Make:</h5>
@@ -205,135 +216,72 @@
                     <!-- <option>select</option> -->
                   </select>
                 </div>
-                <div class="panel panel-primary">
-                  <!-- <div class="panel-heading">
-                    <h3 class="panel-title">Demographic Info</h3>
-                  </div> -->
-                  <div id="sample-metadata" class="panel-body"></div>
-                </div>
               </div>
-              <div class="col-md-4">
-        
-                <!-- BAR -->
-                <div id="bar"></div>
-              </div>
-        
-        
-              <div class="col-lg-4">
-        
-                <!-- GAUGE -->
-                <div id="gauge"></div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-        
-                <!-- BUBBLE -->
-                <div id="bubble"></div>
-              </div>
+              <!-- end selector 1 -->
+
+              
             </div>
           </div>
-        
         <!-- Leaflet Map-->
         <section class="content-section  text-center" id="map">
-            
-
             <!-- actual map located here! -->
-            
           <div id="map"></div>
-
-            <br>
-
-
+          </div> 
+        </section>
 
 
-        <!-- Callout-->
-        
-        <!-- Leaflet Map-->
-        <section class="content-section  text-center" >
-            
-            
-            <!-- start of map.html -->
-            <div class="row">
-                <div id="map-placeholder" class="col-md-8">
+
+        <br><br><br><br><br>
+
+
+
+
+
+
+
+
+      <!-- plotly titleblock & menus -->
+      <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Plotly Charts </h2><br>
+      <div class="container">
+          <div class="row">
+            <div class="col-md-12 jumbotron text-center">
+              <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Kaggle Data</h2><br>
+              <p>Use the interactive charts below to explore the dataset</p>
             </div>
-          
+          </div>
+          <div class="row">
 
-        </section>
-        <script>
-            $(function(){
-            $("#map-placeholder").load("{{ url_for('static', filename='map.html') }}");
-            });
-            </script>
-            <!--end of map.html-->
-
-            <br>
-
-
-
-
-
-
-
-
-
-            </div> 
-        </section>
-        <!-- Portfolio-->
-        <section class="content-section" id="portfolio">
-            <div class="container px-4 px-lg-5">
-                <div class="content-section-heading text-center">
-                    <h3 class="text-secondary mb-0">Portfolio</h3>
-                    <h2 class="mb-5">Recent Projects</h2>
-                </div>
-                <div class="row gx-0">
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Stationary</div>
-                                    <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio-1.jpg" alt="..." />
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Ice Cream</div>
-                                    <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio-2.jpg" alt="..." />
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Strawberries</div>
-                                    <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio-3.jpg" alt="..." />
-                        </a>
-                    </div>
-                    <div class="col-lg-6">
-                        <a class="portfolio-item" href="#!">
-                            <div class="caption">
-                                <div class="caption-content">
-                                    <div class="h2">Workspace</div>
-                                    <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio-4.jpg" alt="..." />
-                        </a>
-                    </div>
-                </div>
+            <!-- selector 1 -->
+            <div class="col-md-3">
+              <div class="well">
+                <h5>Vehicle Make:</h5>
+                <select id="sel_kaggle_make" onchange="optionChanged(this.value)">
+                  <!-- <option>select</option> -->
+                </select>
+              </div>
             </div>
-        </section>
+            <!-- end selector 1 -->
+
+            
+          </div>
+        </div>
+      <!-- Leaflet Map-->
+      <section class="content-section  text-center" id="map">
+          <!-- actual map located here! -->
+        <div id="map"></div>
+        </div> 
+      </section>
+
+
+
+
+
+
+
+
+
+
+
         <!-- Meet the Team-->
         <section class="content-section bg-primary text-white" id="meet_the_team" style="z-index: 30; text-align: center;">
             <h2 class="team_header">Meet the Team!</h2>
