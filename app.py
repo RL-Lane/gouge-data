@@ -60,11 +60,13 @@ def welcome():
         f"<h4>Returns all unique makes in Cargurus Scraped Data:</h4><a href='/api/v1.0/scraped/makes'>/api/v1.0/scraped/makes</a><br/><hr><br>"
         f"<h4>Returns summary data for a single make in Cargurus Scraped Data:</h4> /api/v1.0/scraped/makes/&lt;brand&gt;<br/><br>\
             Brand must exist in above referenced makes list<hr>"
+        f"<h4>Returns gouge score for all dealers:<h4><a href='/api/v1.0/scraped/gouge'>/api/v1.0/scraped/gouge</a><br/><hr><br>"
        
     )
 
 # &lt; = <
 # &gt; = >
+
 
 
 # LIST 1ST 1000 VEHICLES OF ALL.  157,000 ROWS TAKES TOO LONG TO BUILD
@@ -507,6 +509,120 @@ def scrapemakes():
             'make': scrape_list
         })
     )
+
+
+
+
+
+
+
+
+
+
+
+
+# THIS IS THE ROUTE THAT DISPLAYS ALL OF THE CARGURUS SCRAPED DATA
+@app.route("/api/v1.0/scraped/gouge")
+def scrapegouge():
+    """Returns all recorded values of car sale data via cargurus scraping."""
+    # Create our session (link) from Python to the DB
+    session = Session(scrape_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    scrape_list = scrape_engine.execute("\
+        SELECT \
+            vin,\
+            make,\
+            dealername, \
+            COUNT (vin) AS 'count',\
+            lat,\
+            lng,\
+            CAST(dealersprice AS FLOAT) / CAST (msrp AS FLOAT) AS 'gougescore'\
+        FROM car_scrape \
+        GROUP BY dealername\
+        ORDER BY dealername").fetchall()\
+   
+    inspector = inspect(scrape_engine)
+    columns = inspector.get_columns('car_scrape')
+    column_names=[]
+    for c in columns:
+        column_names.append(c['name'])
+    # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for s in scrape_list:
+        temp_dict={
+            'vin': s['vin'],
+            'make': s['make'],
+            'dealername': s['dealername'],
+            'count': s['count'],
+            'lat': s['lat'],
+            'lng': s['lng'],
+            'gougescore': s['gougescore'] **2
+        }
+    #this is where we assign column rows to their corresponding column names
+        
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+
+
+    # create list of features for geojson
+    features = []
+    for o in output_list:
+        f_dict = {
+            "type": "Feature",
+            "properties": o,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    o['lng'],
+                    o['lat']
+                ],
+            },
+            'id': o['vin']
+        }
+        features.append(f_dict)
+
+    south = 29.46226
+    north = 32.76411
+    west = -98.4414
+    east = -95.33558
+
+
+
+    output_dict = {
+        "type": "FeatureCollection",
+        'metadata': {
+            "generated": 1657597256000,#date.today(),
+            "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped/gouge",
+            "title": "geojson data for dealership gouge scores",
+            "status": 200,
+            "api": "1.0",
+            "count": len(output_list)
+        },
+        'features': features
+        # ,
+        # 'bbox':[east, south, west, north]
+        # "bbox": [-179.8958, -57.9362, -3.5, 179.6794, 70.8135, 609.69]
+    }
+    
+    session.close()
+    return (
+        jsonify(output_dict)
+    )
+
+
+
 
 
 

@@ -25,8 +25,9 @@ function optionChanged (selected) {
   BuildCharts(selected);
 }
 
+var gougeapi = 'api/v1.0/scraped/gouge'
 // Perform a GET request to the query URL/
-d3.json(scrapedMakeUrl).then(function (data) {
+d3.json(gougeapi).then(function (data) {
 
     // console.log(data)
     // Once we get a response, send the data.features object to the createFeatures function.
@@ -39,10 +40,9 @@ d3.json(scrapedMakeUrl).then(function (data) {
     // Define a function that we want to run once for each feature in the features array.
     // Give each feature a popup that describes the place and time of the earthquake.
     function onEachFeature(feature, layer) {
-      layer.bindPopup(`<h3>${feature.properties.dealeraddress}</h3><hr>
-                      <strong>Depth: ${feature.geometry.coordinates[2]} km</strong><br>
-                      Magnitude: ${feature.properties.mag}<br>
-                      <h6>${new Date(feature.properties.time)}</h6>`)
+      layer.bindPopup(`<h3>${feature.properties.dealername}</h3><hr>
+                      Vehicles Counted: ${feature.properties.count}<br>
+                      <h6 style="background-color:${getColor(feature.properties.gougescore)}">Gouge Score: ${feature.properties.gougescore}</h6>`)
       // layer.bindPopup(`<h2>Depth: ${feature.geometry.coordinates[2]} km</h2><br>Magnitude: ${feature.properties.mag}`)
 
       // layer.bindPopup('<h2> Greetings </h2>');
@@ -76,8 +76,8 @@ d3.json(scrapedMakeUrl).then(function (data) {
       // console.log(feature.geometry.coordinates[2]);
 
       return {      
-        radius: feature.properties.mag *5,
-        fillColor: getColor(feature.geometry.coordinates[2]),
+        radius: Math.sqrt(feature.properties.count) *3.5,
+        fillColor: getColor(feature.properties.gougescore),
         color: "#000",
         weight: 1,
         opacity: 1,
@@ -95,14 +95,9 @@ d3.json(scrapedMakeUrl).then(function (data) {
   // matches marker colors.
 
   function getColor(d) {
-    return d > depths[0]    ? '#ffff43' :
-           d > depths[1]    ? '#f6d928' :
-           d > depths[2]    ? '#e9b311' :
-           d > depths[3]    ? '#d78f02' :
-           d > depths[4]    ? '#c26d00' :
-           d > depths[5]    ? '#a94c03' :
-           d > depths[6]    ? '#8e2b05' :
-                              '#710301';
+    return d > 1.02    ? '#ff0000' :
+           d > 0.98    ? '#ffff00' :
+                         '#00ff00';
   }
 
   var depths = [30, 20, 15, 10, 5, 2.5, 0];
