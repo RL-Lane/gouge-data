@@ -43,9 +43,7 @@ d3.json(gougeapi).then(function (data) {
       layer.bindPopup(`<h3>${feature.properties.dealername}</h3><hr>
                       Vehicles Counted: ${feature.properties.count}<br>
                       <h6 style="background-color:${getColor(feature.properties.gougescore)}">Gouge Score: ${feature.properties.gougescore}</h6>`)
-      // layer.bindPopup(`<h2>Depth: ${feature.geometry.coordinates[2]} km</h2><br>Magnitude: ${feature.properties.mag}`)
-
-      // layer.bindPopup('<h2> Greetings </h2>');
+      
     }
   
     // Create a GeoJSON layer that contains the features array on the earthquakeData object.
@@ -89,9 +87,8 @@ d3.json(gougeapi).then(function (data) {
     createMap(dealerships);
   }
 
-
-
-  // depth colors.  When combined with depths list, it generalizes the colors so the legend automatically
+  
+  // gouge colors.  When combined with gouge list, it generalizes the colors so the legend automatically
   // matches marker colors.
 
   function getColor(d) {
@@ -100,7 +97,7 @@ d3.json(gougeapi).then(function (data) {
                          '#00ff00';
   }
 
-  var depths = [30, 20, 15, 10, 5, 2.5, 0];
+  // var depths = [30, 20, 15, 10, 5, 2.5, 0];
 
 
   function createMap(dealerships) {
@@ -127,11 +124,8 @@ d3.json(gougeapi).then(function (data) {
   
     // Create our map, giving it the streetmap and earthquakes layers to display on load.
     var myMap = L.map("map", {
-      center: [
-        31.113185, -96.88849
-
-      ],
-      zoom: 7,
+      center: [31.113185, -96.88849],
+      zoom: 6,
       layers: [street, dealerships]
     });
   
@@ -144,28 +138,29 @@ d3.json(gougeapi).then(function (data) {
 
     // create legend
 
-    let legend = L.control({position: 'bottomright'});
+    function  getColour(s) {
+      if (s === 'Dealer Price < MSRP')
+      return '#00ff00'; //green
+      else if (s === 'Dealer Price = MSRP')
+      return '#ffff00'; //yellow
+      else
+      return '#ff0000' //red 
+  }
 
-    legend.onAdd = function (map) {
+  let legend = L.control({position: 'bottomright'});
+
+  legend.onAdd = function (map) {
       let legendDiv =  L.DomUtil.create('div', 'info legend'),
-        checkins = [`> ${depths[0]}`,
-                     `${depths[1]} - ${depths[0]}`,
-                     `${depths[2]} - ${depths[1]}`,
-                     `${depths[3]} - ${depths[2]}`,
-                     `${depths[4]} - ${depths[3]}`,
-                     `${depths[5]} - ${depths[4]}`,
-                     `${depths[6]} - ${depths[5]}`,
-                     `< ${depths[6]}`]
-                     ;
-                     
-        title= ['<strong>Marker Color Codes</strong>'],
-        labels = ['<img style="width:50%"src="static/images/Earthquake_House_Icons.svg"><br>Depth (km) of <br>Earthquake <hr>']
-      for (  i=0; i < checkins.length; i++) {
+         gouge = [
+          'Dealer Price < MSRP', 
+          'Dealer Price = MSRP', 
+          'Dealer Price > MSRP'],
+         labels = ['<h6 style="font-size: small"> TX Dealership Gouge<br>Score Index</h6>'];
+      for ( let i=0; i < gouge.length; i++) {
           labels.push( 
-              '<i class="square" style="background:' + getColor(depths[i]) + '"></i>'+ checkins[i] + '')
+              '<i class="square" style="background:' + getColour(gouge[i]) + '"></i>'+ gouge[i] + '')
       }
-      legendDiv.innerHTML = labels.join('<br>');
-
+      legendDiv.innerHTML = labels.join(' ');
 
       return legendDiv;
   }
