@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, or_, inspect
 from sqlalchemy.ext.automap import automap_base
 from datetime import date
-import geojson
 
 
 
