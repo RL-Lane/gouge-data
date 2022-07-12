@@ -199,8 +199,9 @@ def kagglemakesbybrand(brand):
         WHERE make = '{brand}' \
             AND 'count' > 10 \
         GROUP BY model").fetchall()
-   
+        
     print(kaggle_list)
+    
 
     # inspector = inspect(kaggle_engine)
     # columns = inspector.get_columns('sales')

@@ -16,4 +16,26 @@ d3.json(kaggleMakeUrl).then((data) => {
     
   });
   // build charts here
+  var kaggleMakeBrand = "/api/v1.0/kaggle/makes/<brand>"
+
+  d3.json(kaggleMakeBrand).then((data) => {
+
+    let sample = data.model
+     let sample1 = data.count
+
+    
+    //.kaggleMakeBrand.filter(values => values.temp_dict) 
+  
+  var data = [
+    {
+      x: sample,
+      y: sample1,
+      type: 'bar'
+    }
+  ];
+  
+  Plotly.newPlot('plotly', data);
+
+})
+
 })
