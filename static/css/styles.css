@@ -24,13 +24,12 @@
     margin-left: 9%;
   }
 
-  #hyperlinks {
+  .hyper-links {
       color: white;
       font-weight: bolder;
-      text-decoration: none;
+      text-decoration:none;
       font-size: 15px;
-      margin-left: 27%;
-     
+      margin-left: 25%;
   }
 
   #team_pics {

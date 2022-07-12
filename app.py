@@ -38,6 +38,8 @@ kaggle_data = Kaggle_Base.classes
 # Flask Setup
 #################################################
 app = Flask(__name__)
+app.config['JSON_SORT_KEYS'] = False
+
 
 @app.route("/")
 def home():
@@ -45,17 +47,24 @@ def home():
 
 # LIST ALL AVAILABLE ROUTES
 @app.route("/api")
+@app.route("/api/")
 def welcome():
     """List all available api routes."""
     return (
         f"<h2>Available Routes:<h2/><hr>"
         
-        f"<h4>Return first 1,000 of all results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
+        f"<h4>Return first 1,000 of all kaggle results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
         f"<h4>Returns all unique makes in kaggle:</h4><a href='/api/v1.0/kaggle/makes'>/api/v1.0/kaggle/makes</a><br/><hr><br>"
+
         f"<h4>Returns all results from Cargurus Scraped Data:<h4><a href='/api/v1.0/scraped'>/api/v1.0/scraped</a><br/><hr><br>"
         f"<h4>Returns all unique makes in Cargurus Scraped Data:</h4><a href='/api/v1.0/scraped/makes'>/api/v1.0/scraped/makes</a><br/><hr><br>"
-        "/api/v1.0/&ltstart>/&ltend> , dates must be formatted as YYYY-MM-DD (e.g. 1994-04-03)</a><br/>"
+        f"<h4>Returns summary data for a single make in Cargurus Scraped Data:</h4> /api/v1.0/scraped/makes/&lt;brand&gt;<br/><br>\
+            Brand must exist in above referenced makes list<hr>"
+       
     )
+
+# &lt; = <
+# &gt; = >
 
 
 # LIST 1ST 1000 VEHICLES OF ALL.  157,000 ROWS TAKES TOO LONG TO BUILD
@@ -166,6 +175,76 @@ def kagglemakes():
 
 
 
+# LIST ALL MAKES FROM KAGGLE DATA
+@app.route("/api/v1.0/kaggle/makes/<brand>")
+def kagglemakesbybrand(brand):
+    """Returns all recorded values of car sale date via kaggle."""
+    # Create our session (link) from Python to the DB
+    session = Session(kaggle_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    # kaggle_list = kaggle_engine.execute(f"SELECT * FROM sales WHERE make = '{brand}'").fetchall()
+    kaggle_list = kaggle_engine.execute(f"\
+        SELECT \
+            model, \
+            CAST (AVG(msrp) AS INT) AS 'avg msrp', \
+            COUNT(model) AS 'count', \
+            body_class\
+        FROM sales \
+        WHERE make = '{brand}' \
+            AND 'count' > 10 \
+        GROUP BY model").fetchall()
+   
+    print(kaggle_list)
+
+    # inspector = inspect(kaggle_engine)
+    # columns = inspector.get_columns('sales')
+    # column_names=[]
+    # for c in columns:
+    #     column_names.append(c['name'])
+    # column_names
+
+
+    # session.close()
+    # return (jsonify(kaggle_list))
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for k in kaggle_list:
+        temp_dict={
+            'model': k['model'],
+            'avg_msrp': k['avg msrp'],
+            'count': k['count'],
+            'body_style': k['body_class']
+        }
+    #this is where we assign column rows to their corresponding column names
+        # for c in range(0,len(column_names)):
+        #     temp_dict[column_names[c]]=k[c]
+
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+    
+    session.close()
+    return (
+        jsonify (output_list)
+    )
+
+
+
+
+
+
+
+
+
+
 # THIS IS THE ROUTE THAT DISPLAYS ALL OF THE CARGURUS SCRAPED DATA
 @app.route("/api/v1.0/scraped")
 def scraped():
@@ -212,18 +291,25 @@ def scraped():
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    o['lat'],
-                    o['lng']
+                    o['lng'],
+                    o['lat']
                 ],
             },
             'id': o['vin']
         }
         features.append(f_dict)
 
+    south = 29.46226
+    north = 32.76411
+    west = -98.4414
+    east = -95.33558
+
+
+
     output_dict = {
         "type": "FeatureCollection",
         'metadata': {
-            "generated": date.today(),
+            "generated": 1657597256000,#date.today(),
             "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped",
             "title": "gouge-data all scraped cars",
             "status": 200,
@@ -231,12 +317,135 @@ def scraped():
             "count": len(output_list)
         },
         'features': features
+        # ,
+        # 'bbox':[east, south, west, north]
+        # "bbox": [-179.8958, -57.9362, -3.5, 179.6794, 70.8135, 609.69]
     }
     
     session.close()
     return (
-        jsonify (output_dict)
+        jsonify(output_dict)
     )
+
+
+
+
+
+
+
+
+
+
+
+
+    # THIS IS THE ROUTE THAT DISPLAYS ALL OF THE CARGURUS SCRAPED DATA FOR A SINGLE MAKE
+@app.route("/api/v1.0/scraped/makes/<brand>")
+def singlemake(brand):
+    """Returns all recorded values of car sale data via cargurus scraping."""
+    # Create our session (link) from Python to the DB
+    session = Session(scrape_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    scrape_list = scrape_engine.execute(f"SELECT * FROM car_scrape WHERE make = '{brand}'").fetchall()
+   
+    inspector = inspect(scrape_engine)
+    columns = inspector.get_columns('car_scrape')
+    column_names=[]
+    for c in columns:
+        column_names.append(c['name'])
+    # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for s in scrape_list:
+        temp_dict={}
+    #this is where we assign column rows to their corresponding column names
+        for c in range(0,len(column_names)):
+            temp_dict[column_names[c]]=s[c]
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    output_list
+
+
+
+    # create list of features for geojson
+    features = []
+    for o in output_list:
+        f_dict = {
+            "type": "Feature",
+            "properties": o,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    o['lng'],
+                    o['lat']
+                ],
+            },
+            'id': o['vin']
+        }
+        features.append(f_dict)
+
+
+    south = 29.46226
+    north = 32.76411
+    west = -98.4414
+    east = -95.33558
+
+
+    output_dict = {
+        "type": "FeatureCollection",
+        'metadata': {
+            "generated": 1657597256000,#date.today(),
+            "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped/makes/-brand-",
+            "title": "gouge-data all scraped cars",
+            "status": 200,
+            "api": "1.0",
+            "count": len(output_list)
+        },
+        'features': features
+
+         # 'bbox':[east, south, west, north,70.8135,609.69]
+        # "bbox": [-179.8958, -57.9362, -3.5, 179.6794, 70.8135, 609.69]
+
+    }
+    
+    session.close()
+    return (
+        jsonify(output_dict)
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
