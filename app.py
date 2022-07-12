@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, or_, inspect
 from sqlalchemy.ext.automap import automap_base
 from datetime import date
+import geojson
 
 
 
@@ -291,18 +292,25 @@ def scraped():
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    o['lat'],
-                    o['lng']
+                    o['lng'],
+                    o['lat']
                 ],
             },
             'id': o['vin']
         }
         features.append(f_dict)
 
+    south = 29.46226
+    north = 32.76411
+    west = -98.4414
+    east = -95.33558
+
+
+
     output_dict = {
         "type": "FeatureCollection",
         'metadata': {
-            "generated": date.today(),
+            "generated": 1657597256000,#date.today(),
             "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped",
             "title": "gouge-data all scraped cars",
             "status": 200,
@@ -310,11 +318,14 @@ def scraped():
             "count": len(output_list)
         },
         'features': features
+        # ,
+        # 'bbox':[east, south, west, north]
+        # "bbox": [-179.8958, -57.9362, -3.5, 179.6794, 70.8135, 609.69]
     }
     
     session.close()
     return (
-        jsonify (output_dict)
+        jsonify(output_dict)
     )
 
 
@@ -374,30 +385,41 @@ def singlemake(brand):
             "geometry": {
                 "type": "Point",
                 "coordinates": [
-                    o['lat'],
-                    o['lng']
+                    o['lng'],
+                    o['lat']
                 ],
             },
             'id': o['vin']
         }
         features.append(f_dict)
 
+
+    south = 29.46226
+    north = 32.76411
+    west = -98.4414
+    east = -95.33558
+
+
     output_dict = {
         "type": "FeatureCollection",
         'metadata': {
-            "generated": date.today(),
-            "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped",
+            "generated": 1657597256000,#date.today(),
+            "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped/makes/-brand-",
             "title": "gouge-data all scraped cars",
             "status": 200,
             "api": "1.0",
             "count": len(output_list)
         },
         'features': features
+
+         # 'bbox':[east, south, west, north,70.8135,609.69]
+        # "bbox": [-179.8958, -57.9362, -3.5, 179.6794, 70.8135, 609.69]
+
     }
     
     session.close()
     return (
-        jsonify (output_dict)
+        jsonify(output_dict)
     )
 
 
