@@ -460,6 +460,38 @@ legend {
   font-size: calc(1.275rem + 0.3vw);
   line-height: inherit;
 }
+
+.leaflet-popup-content {
+  text-align: left;
+}
+
+.legend { 
+  
+  color: black;
+  text-align: center;
+  width: 150px;
+  height: 110px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 18px;
+  background: white;
+  opacity: 1;
+  border-radius: 5px;
+}
+.legend i {
+      width: 15px;
+      height: 15px;
+      float: left;
+      margin-left: 8px;
+      opacity: 1;
+}
+.legend square {
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      margin-top: 8px;      
+}
+
 @media (min-width: 1200px) {
   legend {
     font-size: 1.5rem;
