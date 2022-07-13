@@ -19,6 +19,7 @@ d3.json(kaggleMakeUrl).then((data) => {
 })
 
 
+
 function optionChangedKaggle (selected) {
   console.log(selected);
   BuildCharts(selected);
