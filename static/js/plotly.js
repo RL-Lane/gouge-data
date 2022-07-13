@@ -77,15 +77,27 @@ function BuildCharts(selected) {
 
 
       // bar chart of top 10 samples
+      // deal with color scale issues
+      let colormin = Math.min.apply(null, avg_msrp);
+      let colormax = Math.max.apply(null, avg_msrp);
+      // console.log(colormin);
+      // console.log(colormax);
+      colorlist = [];
+      for (let i=0; i < avg_msrp.length; i++) {
+        colorlist.push( (avg_msrp[[i]] - colormin) / colormax  );
+      }
+      console.log(colorlist);
+
+      // bar chart of top 10 samples
       let trace1 = {
           x: avg_msrp.reverse(),
-          y: model.reverse().map(a => a.toString()),
+          y: model.reverse().map(a => selected + ' ' + a.toString()),
           hovertext: msrp_money.reverse(),
           type: "bar",
           // autosize: false
           orientation: 'h',
           marker: {
-              // color: msrp.reverse(),
+              color: colorlist.reverse(),
               colorscale: "Portland"
           }
       };
@@ -93,22 +105,35 @@ function BuildCharts(selected) {
       let databar = [trace1];
 
       let bar_layout = {
-          title: `10 Highest Priced Vehicles for ${selected.toString()}`
-      };
-      Plotly.newPlot("bar", databar);
+          title: `Highest Priced Vehicles for ${selected.toString()}`, 
+          width: 600, 
+          height: 500,
+          xaxis: {
+            title: 'Average MSRP'
+          },
+          yaxis: {
+            title: 'Vehicle Model',
+            automargin: true,
+          },
+          paper_bgcolor:'#f5f5dc',
+          plot_bgcolor: '#f5f5dc'
+          }
+      
+      Plotly.newPlot("bar", databar, bar_layout)
+      
 
 
       // bubble chart
       let bubbletrace = {
           type: 'scatter',
-          x: results[0].otu_ids,
-          y: results[0].sample_values,
+          x: avg_msrp,
+          y: model.map(a => selected + ' ' + a.toString()),
           mode: 'markers',
-          text: results[0].otu_labels.map(a => a.replaceAll(';', ',  ')),
+          // text: results[0].count.map(a => a.replaceAll(';', ',  ')),
           marker: {
-              size: results[0].sample_values.map(a => (a ** 1.5 * 15)),
+              size: results[i].model,
               sizemode: 'area',
-              color: results[0].otu_ids,
+              color: results[i].avg_msrp,
               
               colorscale: [[0, 'indigo'], [0.5, 'limegreen'], [1, 'orangered']]
           }

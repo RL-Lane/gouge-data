@@ -492,6 +492,10 @@ legend {
       margin-top: 8px;      
 }
 
+/* #bar {
+  margin-left: 100px;
+} */
+
 @media (min-width: 1200px) {
   legend {
     font-size: 1.5rem;
