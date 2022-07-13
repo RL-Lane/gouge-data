@@ -6,8 +6,6 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Vehicle Gouge</title>
-        <!-- Favicon-->
-
 
         <!-- start bootstrap / styling -->
         <link rel="icon" type="image/x-icon" href="../static/assets/car_icon.ico" />
@@ -187,9 +185,9 @@
 
              <br>
              <br>
-             <br>
-             <br>
-             <br>
+             <!-- <br>
+             <br> -->
+             <hr>
             </div>
     
         </section>
@@ -202,21 +200,28 @@
 
 
         <!-- map section titleblock & menus -->
-        <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Distribution of Data by Texas Dealer</h2><br>
+        <!-- <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Gouge Score by Texas Dealer</h2><br> -->
         <div class="container">
-            <div class="row">
-              <div class="col-md-12 jumbotron text-center">
-                <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Cars by Dealer</h2><br>
-                <p>Use the interactive map below to explore the gouge score for scraped <br> Jeep, Ford, General Motors, and Toyota dealerships in Texas.</p>
-              </div>
+          <div class="row">
+            <div class="col-md-12 jumbotron text-center">
+              <!-- nav bar link -->
+              <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Gouge Score Comparison by Texas Dealer</h2>
+              <p>Use the interactive map below to explore the gouge score for scraped<br> 
+                Jeep, Ford, General Motors, and Toyota dealerships in Texas.
+              </p>
+              <p style="font-size: x-small">
+                *Data relflects information scraped from Cargurus.com July 2022.
+              </p>
+              <br>
             </div>
-            <div class="row">
+          </div>
+          <div class="row">
 
               <!-- selector 1 -->
               <div class="col-md-3">
-                <div class="well">
-                  <h5>Vehicle Make:</h5>
-                  <select id="selscrapemake" class="form-select" onchange="optionChanged(this.value)">
+                <!-- <div class="well"> -->
+                  <!-- <h5>Vehicle Make:</h5> -->
+                  <!-- <select id="selscrapemake" class="form-select" onchange="optionChanged(this.value)"> -->
                     <!-- <option>select</option> -->
                   </select>
                 </div>
@@ -235,20 +240,28 @@
 
 
 
-        <br><br><br><br><br>
+        <br>
+        <br>
+        <hr>
+        <!-- <br> -->
+        <!-- <br>  -->
+        <!-- <br> -->
+        <!-- <br> -->
 
 
 
 
         <!-- map section titleblock & menus -->
-        <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Distribution of Data by Texas Dealer</h2><br>
+        <!-- <h2 id="map-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;"> Distribution of Data by Texas Dealer</h2><br> -->
         <div class="container">
             <div class="row">
               <div class="col-md-12 jumbotron text-center">
 
                 <!-- nav bar link -->
-                <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Cars by Dealer</h2><br>
-                <p>Use the interactive charts below to explore the dataset</p>
+                <h2 id="visualizations-section" style="z-index: 85; text-align: center; background-color: #f5f5dc;">Average MSRP Comparison</h2>
+                <p>Use the interactive charts below to compare the average model<br>  MSRP amongst and within various vehicle makes.</p>
+                <p style="font-size: x-small">*Data relflects information gathered from Kaggle via the state of Illinios from June 2018 to June 2020.</p>
+                <br>
               </div>
             </div>
             <div class="row">
@@ -260,7 +273,7 @@
                   <select id="sel_kaggle_make" class="form-select" onchange="optionChangedKaggle(this.value)">
                     <option selected disabled="disabled">select</option>
                   </select>
-                  <hr>
+                  <!-- <hr> -->
                 </div>
               </div>
               <!-- end selector 1 -->
@@ -273,7 +286,7 @@
                   <select id="sel_kaggle_make2" class="form-select" onchange="optionChangedKaggle2(this.value)">
                     <option selected disabled="disabled">select</option>
                   </select>
-                  <hr>
+                  <!-- <hr> -->
                 </div>
               </div>
               <!-- end selector 2 -->
@@ -290,14 +303,12 @@
                 <div class="row" style="background-color: #f5f5dc">
   
                   <div class="col-md-6 pb-5">
-  
                     <!-- BAR -->
                     <div id="bar"></div>
                   </div>
                   
 
                   <div class="col-md-6">
-  
                     <!-- BAR -->
                     <div id="bar2"></div>
                   </div>
@@ -325,7 +336,7 @@
             
              
           </section>
-          <hr>
+          <!-- <hr> -->
   
   
   
@@ -346,106 +357,106 @@
 
 
 
-        <!-- Meet the Team-->
-        <section class="content-section bg-primary text-white" id="meet_the_team" style="z-index: 30; text-align: center;">
-            <h2 class="team_header">Meet the Team!</h2>
-            <br>
-            <br>
-            <div class="row" id="meetteam_format" >
-                    <div class = "col-md-2.4" class="card" style="width: 12.5rem;">
-                    <img id="team_pics" src="../static/assets/img/dc_photo.jpg") class="card-img-top" >
-                    <div class="card-body">
-                    <br>
-                   <p class="card-text">
-                        <h8 class="name">Daniel Czornyj</h8>
+         <!-- Meet the Team-->
+         <section class="content-section bg-primary text-white" id="meet_the_team" style="z-index: 30; text-align: center;">
+          <h2 class="team_header">Meet the Team!</h2>
+          <br>
+          <br>
+          <div class="row" id="meetteam_format" >
+                  <div class = "col-md-2.4" class="card" style="width: 12.5rem;">
+                  <img id="team_pics" src="../static/assets/img/dc_photo.jpg") class="card-img-top" >
+                  <div class="card-body">
+                  <br>
+                 <p class="card-text">
+                      <h8 class="name">Daniel Czornyj</h8>
+                      <br>
+                      <br>
+                      <a class="hyper-links" href="https://github.com/dczornyj" target="_blank" >Github</a>
+                      <br>
+                      <a class="hyper-links" href="https://www.linkedin.com/in/daniel-czornyj-b602771bb/" target="_blank">LinkedIn</a>
+                  </p>
+                  <p id="text" class="card-text">
+  
+                  </p>
+                  </div>
+              </div>
+              
+              
+              <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
+                  <img id="team_pics" src="../static/assets/img/RG_photo.jpg" class="card-img-top">
+                  <br>
+                  <div class="card-body">
+                      <br>
+                      <p class="card-text">
+                        <h8 class="name">Robert Gonzalez</h8>
                         <br>
                         <br>
-                        <a class="hyper-links" href="https://github.com/dczornyj" target="_blank" >Github</a>
+                        <a class="hyper-links" href = "https://github.com/RSGDATA" target="_blank">Github</a>
                         <br>
-                        <a class="hyper-links" href="https://www.linkedin.com/in/daniel-czornyj-b602771bb/" target="_blank">LinkedIn</a>
-                    </p>
-                    <p id="text" class="card-text">
-    
-                    </p>
-                    </div>
-                </div>
-                
-                
-                <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
-                    <img id="team_pics" src="../static/assets/img/RG_photo.jpg" class="card-img-top">
-                    <br>
-                    <div class="card-body">
-                        <br>
-                        <p class="card-text">
-                          <h8 class="name">Robert Gonzalez</h8>
+                        <a class="hyper-links" href="https://www.linkedin.com/in/robert-gonzalez-20ab4a234/" target="_blank" >LinkedIn</a>
+                  </p>
+                  </div>
+              </div>
+  
+              <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
+                  <img id="team_pics" src="../static/assets/img/RL_photo.jpg" class="card-img-top">
+                  <div class="card-body">
+                      <br>    
+                      <p class="card-text">
+                          <h8 class="name_rob">Robert Lane</h8>
                           <br>
                           <br>
-                          <a class="hyper-links" href = "https://github.com/RSGDATA" target="_blank">Github</a>
+                          <a class="hyper-links" href="https://github.com/RL-Lane" target="_blank">Github</a>
                           <br>
-                          <a class="hyper-links" href="https://www.linkedin.com/in/robert-gonzalez-20ab4a234/" target="_blank" >LinkedIn</a>
-                    </p>
-                    </div>
-                </div>
+                          <a class="hyper-links" href="https://www.linkedin.com/in/robert-lane-jr/" target="_blank">LinkedIn</a>
+                      </p> 
+                  </div>
+              </div>
+  
+  
+              <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
+                  <img id="team_pics" src="../static/assets/img/KL_photo.jpg" class="card-img-top">
+                  <div class="card-body">
+                      <br>
+                      <p class="card-text">
+                          <h8 class="name">Krystal Lewis</h8>
+                          <br>
+                          <br>
+                          <a class="hyper-links" href="https://github.com/klew1230" target="_blank">Github</a>
+                          <br>
+                          <a class="hyper-links" href="https://www.linkedin.com/in/krystallewis91/">LinkedIn</a>
+                      </p>
+                  </div>
+              </div>
+              <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
+                  <img id="team_pics" src="../static/assets/img/CS_photo.jpg" class="card-img-top">
+                  <div class="card-body">
+                      <br>
+                      <p class="card-text">
+                          <h8 class="name">Cody Sultenfuss</h8>
+                          <br>
+                          <br>
+                          <a class="hyper-links" href="https://github.com/sultenfussc" target="_blank">Github</a>
+                          <br>
+                          <a class="hyper-links" href="https://www.linkedin.com/in/cody-sultenfuss-067407a1/" target="_blank">LinkedIn</a>
+                      </p>
+                  </div>
+              </div>
+  
+  
+          </div>
+          
+      </section>
+      <!-- Footer-->
     
-                <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
-                    <img id="team_pics" src="../static/assets/img/RL_photo.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <br>    
-                        <p class="card-text">
-                            <h8 class="name_rob">Robert Lane</h8>
-                            <br>
-                            <br>
-                            <a class="hyper-links" href="https://github.com/RL-Lane" target="_blank">Github</a>
-                            <br>
-                            <a class="hyper-links" href="https://www.linkedin.com/in/robert-lane-jr/" target="_blank">LinkedIn</a>
-                        </p> 
-                    </div>
-                </div>
-    
-    
-                <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
-                    <img id="team_pics" src="../static/assets/img/KL_photo.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <br>
-                        <p class="card-text">
-                            <h8 class="name">Krystal Lewis</h8>
-                            <br>
-                            <br>
-                            <a class="hyper-links" href="https://github.com/klew1230" target="_blank">Github</a>
-                            <br>
-                            <a class="hyper-links" href="https://www.linkedin.com/in/krystallewis91/">LinkedIn</a>
-                        </p>
-                    </div>
-                </div>
-                <div class = "col-md-2.4" class="card" style="width: 12.5rem;" id="card_format">
-                    <img id="team_pics" src="../static/assets/img/CS_photo.jpg" class="card-img-top">
-                    <div class="card-body">
-                        <br>
-                        <p class="card-text">
-                            <h8 class="name">Cody Sultenfuss</h8>
-                            <br>
-                            <br>
-                            <a class="hyper-links" href="https://github.com/sultenfussc" target="_blank">Github</a>
-                            <br>
-                            <a class="hyper-links" href="https://www.linkedin.com/in/cody-sultenfuss-067407a1/" target="_blank">LinkedIn</a>
-                        </p>
-                    </div>
-                </div>
-    
-    
-            </div>
-            
-        </section>
-        <!-- Footer-->
-      
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#home"><i class="fas fa-angle-up"></i></a>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <!-- <script src="js/scripts.js"></script> -->
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#home"><i class="fas fa-angle-up"></i></a>
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Core theme JS-->
+      <!-- <script src="js/scripts.js"></script> -->
 
-        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 
-    </body>
+  </body>
 </html>
