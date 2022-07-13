@@ -192,13 +192,14 @@ def kagglemakesbybrand(brand):
     kaggle_list = kaggle_engine.execute(f"\
         SELECT \
             model, \
-            CAST (AVG(msrp) AS INT) AS 'avg msrp', \
+            CAST (AVG(msrp) AS INT) AS 'avg_msrp', \
             COUNT(model) AS 'count', \
             body_class\
         FROM sales \
         WHERE make = '{brand}' \
             AND 'count' > 10 \
-        GROUP BY model").fetchall()
+        GROUP BY model\
+            ORDER BY 2 DESC").fetchall()
    
     print(kaggle_list)
 
@@ -220,7 +221,7 @@ def kagglemakesbybrand(brand):
     for k in kaggle_list:
         temp_dict={
             'model': k['model'],
-            'avg_msrp': k['avg msrp'],
+            'avg_msrp': k['avg_msrp'],
             'count': k['count'],
             'body_style': k['body_class']
         }
