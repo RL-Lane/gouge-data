@@ -118,7 +118,7 @@ function BuildCharts(selected) {
       let databar = [trace1];
 
       let bar_layout = {
-          title: `Highest Priced Vehicles for ${selected.toString()}`, 
+          title: `Average Model MSRP for ${selected.toString()}`, 
           width: 600, 
           height: 500,
           xaxis: {
@@ -127,6 +127,7 @@ function BuildCharts(selected) {
           yaxis: {
             title: 'Vehicle Model',
             automargin: true,
+            tickwidth: 2
           },
           paper_bgcolor:'#f5f5dc',
           plot_bgcolor: '#f5f5dc'
@@ -292,7 +293,7 @@ function BuildCharts2(selected) {
       let databar = [trace1];
 
       let bar_layout = {
-          title: `Highest Priced Vehicles for ${selected.toString()}`, 
+          title: `Average Model MSRP for ${selected.toString()}`, 
           width: 600, 
           height: 500,
           xaxis: {
@@ -301,6 +302,7 @@ function BuildCharts2(selected) {
           yaxis: {
             title: 'Vehicle Model',
             automargin: true,
+            tickwidth: 2
           },
           paper_bgcolor:'#f5f5dc',
           plot_bgcolor: '#f5f5dc'

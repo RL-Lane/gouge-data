@@ -7,7 +7,7 @@ d3.json(scrapedMakeUrl).then((data) => {
   let dropdown = d3.select("#selscrapemake");
 
   data.make.forEach((id) => {
-      console.log(id);
+      //console.log(id);
 
       dropdown.append("option").text(id).property("value", id);
     // for (let i=0; i < 5; i++){
@@ -46,13 +46,7 @@ d3.json(gougeapi).then(function (data) {
       
     }
   
-    // Create a GeoJSON layer that contains the features array on the earthquakeData object.
-    // Run the onEachFeature function once for each piece of data in the array.
-
-    //old version
-    // var earthquakes = L.geoJSON(earthquakeData, {
-    //   onEachFeature: onEachFeature
-    // });
+    
 
     var dealerships = L.geoJSON
     (
