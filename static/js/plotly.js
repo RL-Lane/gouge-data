@@ -4,11 +4,14 @@ d3.json(kaggleMakeUrl).then((data) => {
   // console.log(data.names)
 
   let dropdown = d3.select("#sel_kaggle_make");
+  let dropdown2 = d3.select("#sel_kaggle_make2");
 
   data.make.forEach((id) => {
       // console.log(id);
 
       dropdown.append("option").text(id).property("value", id);
+      dropdown2.append("option").text(id).property("value", id);
+      dropdown2.enter(data.make[1]);
     // for (let i=0; i < 5; i++){
     //   dropdown.append("option").text("blank").property("value", "blank");
     // }
@@ -33,13 +36,13 @@ function optionChangedKaggle2 (selected) {
 }
 
 
-function BuildCharts2(selected) {
+function BuildCharts(selected) {
   KaggleSelectQuery = kaggleMakeUrl + '/' + selected.toString();
   // console.log(KaggleSelectQuery);
   // load data for charting
   d3.json(KaggleSelectQuery).then((data) => {
       // console.log(data)
-      results = data.filter(a => a.model !== '0');
+      results = data.filter(a => a.model !== '0').filter(a => a.avg_msrp > 1000);
 
       // console.log(results);
 
@@ -218,13 +221,13 @@ function BuildCharts2(selected) {
 
 
 
-function BuildCharts(selected) {
+function BuildCharts2(selected) {
   KaggleSelectQuery = kaggleMakeUrl + '/' + selected.toString();
   // console.log(KaggleSelectQuery);
   // load data for charting
   d3.json(KaggleSelectQuery).then((data) => {
       // console.log(data)
-      results = data.filter(a => a.model !== '0');
+      results = data.filter(a => a.model !== '0').filter(a => a.avg_msrp > 1000);
 
       // console.log(results);
 
