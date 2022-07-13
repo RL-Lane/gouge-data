@@ -257,12 +257,24 @@
               <div class="col-md-3">
                 <div class="well">
                   <h5>Vehicle Make:</h5>
-                  <select id="sel_kaggle_make" onchange="optionChanged(this.value)">
+                  <select id="sel_kaggle_make" onchange="optionChangedKaggle(this.value)">
                     <!-- <option>select</option> -->
                   </select>
                 </div>
               </div>
               <!-- end selector 1 -->
+
+
+              <!-- selector 2 -->
+              <div class="col-md-3">
+                <div class="well">
+                  <h5>Vehicle Make:</h5>
+                  <select id="sel_kaggle_make2" onchange="optionChangedKaggle2(this.value)">
+                    <!-- <option>select</option> -->
+                  </select>
+                </div>
+              </div>
+              <!-- end selector 2 -->
 
               
             </div>
@@ -279,6 +291,12 @@
   
                     <!-- BAR -->
                     <div id="bar"></div>
+                  </div>
+
+                  <div class="col-md-6">
+  
+                    <!-- BAR -->
+                    <div id="bar2"></div>
                   </div>
             
             
