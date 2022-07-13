@@ -52,6 +52,9 @@
         <script src="{{ url_for('static', filename='js/leaflet.js') }}"></script>
         <script src="{{ url_for('static', filename='js/plotly.js') }}"></script>
 
+       <!-- load Plotly -->
+        <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+
 
 
 
@@ -265,11 +268,52 @@
             </div>
           </div>
         <!-- plotly charts-->
-        <section class="content-section  text-center" id="plotly">
+      
             <!-- actual plots located here! -->
-          
-          </div> 
-        </section>
+            <section class="content-section  text-center" id="plotly">
+              <!-- actual plots located here! -->
+              <div class="container">
+                <div class="row" style="background-color: #f5f5dc">
+  
+                  <div class="col-md-6">
+  
+                    <!-- BAR -->
+                    <div id="bar"></div>
+                  </div>
+            
+            
+                  <div class="col-lg-4">
+            
+                    <!-- GAUGE -->
+                    <div id="gauge"></div>
+                  </div>
+  
+                
+  
+  
+                <div class="row">
+                  <div class="col-md-12">
+            
+                    <!-- BUBBLE -->
+                    <div id="bubble"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                
+            
+             
+          </section>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 

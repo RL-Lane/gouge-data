@@ -85,7 +85,7 @@ function BuildCharts(selected) {
           // autosize: false
           orientation: 'h',
           marker: {
-              color: "#FF8800",
+              // color: msrp.reverse(),
               colorscale: "Portland"
           }
       };
