@@ -216,7 +216,7 @@
               <div class="col-md-3">
                 <div class="well">
                   <h5>Vehicle Make:</h5>
-                  <select id="selscrapemake" onchange="optionChanged(this.value)">
+                  <select id="selscrapemake" class="form-select" onchange="optionChanged(this.value)">
                     <!-- <option>select</option> -->
                   </select>
                 </div>
@@ -254,15 +254,29 @@
             <div class="row">
 
               <!-- selector 1 -->
-              <div class="col-md-3">
+              <div class="col-md-6 text-center">
                 <div class="well">
                   <h5>Vehicle Make:</h5>
-                  <select id="sel_kaggle_make" onchange="optionChanged(this.value)">
-                    <!-- <option>select</option> -->
+                  <select id="sel_kaggle_make" class="form-select" onchange="optionChangedKaggle(this.value)">
+                    <option selected disabled="disabled">select</option>
                   </select>
+                  <hr>
                 </div>
               </div>
               <!-- end selector 1 -->
+
+
+              <!-- selector 2 -->
+              <div class="col-md-6 text-center">
+                <div class="well">
+                  <h5>Vehicle Make (2nd chart):</h5>
+                  <select id="sel_kaggle_make2" class="form-select" onchange="optionChangedKaggle2(this.value)">
+                    <option selected disabled="disabled">select</option>
+                  </select>
+                  <hr>
+                </div>
+              </div>
+              <!-- end selector 2 -->
 
               
             </div>
@@ -275,10 +289,17 @@
               <div class="container">
                 <div class="row" style="background-color: #f5f5dc">
   
-                  <div class="col-md-6">
+                  <div class="col-md-6 pb-5">
   
                     <!-- BAR -->
                     <div id="bar"></div>
+                  </div>
+                  
+
+                  <div class="col-md-6">
+  
+                    <!-- BAR -->
+                    <div id="bar2"></div>
                   </div>
             
             
@@ -304,6 +325,7 @@
             
              
           </section>
+          <hr>
   
   
   
