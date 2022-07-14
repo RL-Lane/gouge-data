@@ -120,7 +120,8 @@ d3.json(gougeapi).then(function (data) {
     var myMap = L.map("map", {
       center: [31.113185, -96.88849],
       zoom: 6,
-      layers: [street, dealerships]
+      layers: [street, dealerships],
+      scrollWheelZoom: false
     });
   
     // Create a layer control.
