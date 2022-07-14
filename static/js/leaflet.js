@@ -23,7 +23,10 @@ d3.json(scrapedMakeUrl).then((data) => {
 function optionChanged (selected) {
   // console.log(selected);
   BuildCharts(selected);
+  BuildCharts3(selected);
 }
+
+
 
 var gougeapi = 'api/v1.0/scraped/gouge'
 // Perform a GET request to the query URL/

@@ -625,6 +625,104 @@ def scrapegouge():
         jsonify(output_dict)
     )
 
+@app.route("/api/v1.0/scraped/msrp/<make>")
+def msrpchart(make):
+    """Returns all recorded values of car sale data via cargurus scraping."""
+    # Create our session (link) from Python to the DB
+    session = Session(scrape_engine)
+
+    # # Find the most recent date in the data set.
+    # sel = [kaggle_data]
+    
+    # Perform a query to retrieve the data and precipitation scores
+    scrape_list = scrape_engine.execute(f"\
+        SELECT\
+            make,\
+            model,\
+            AVG(dealersprice) AS 'dealer_price',\
+            AVG(msrp) AS 'msrp'\
+        FROM car_scrape \
+        WHERE make = '{make}'\
+        GROUP BY make\
+        ORDER BY model").fetchall()\
+   
+    # inspector = inspect(scrape_engine)
+    # columns = inspector.get_columns('car_scrape')
+    # column_names=[]
+    # for c in columns:
+    #     column_names.append(c['name'])
+    # # column_names
+
+
+
+
+    # Firstly, our end goal is to create a list of dictionaries to use in JSONify later for easy plotting
+    output_list=[]
+    # for the first 10 entries in kaggle_list coming from cis_2018.sqlite database...
+    for s in scrape_list:
+        temp_dict={
+            'make': s['make'],
+            'model': s['model'],
+            'dealer_price': s['dealer_price'],
+            'msrp': s['msrp']
+            
+        }
+        
+    #this is where we assign column rows to their corresponding column names
+        
+    #append temp_dict to output_list
+        output_list.append(temp_dict)
+    #print(output_list)
+
+
+
+    # # create list of features for geojson
+    # features = []
+    # for o in output_list:
+    #     f_dict = {
+    #         "type": "Feature",
+    #         "properties": o,
+    #         "geometry": {
+    #             "type": "Point",
+    #             "coordinates": [
+    #                 o['lng'],
+    #                 o['lat']
+    #             ],
+    #         },
+    #         'id': o['vin']
+    #     }
+    #     features.append(f_dict)
+
+    # south = 29.46226
+    # north = 32.76411
+    # west = -98.4414
+    # east = -95.33558
+
+
+
+    # output_dict = {
+    #     "type": "FeatureCollection",
+    #     'metadata': {
+    #         "generated": 1657597256000,#date.today(),
+    #         "url": "https://gouge-data.herokuapp.com/api/v1.0/scraped/msrp",
+    #         "title": "geojson data for dealership gouge scores",
+    #         "status": 200,
+    #         "api": "1.0",
+    #         "count": len(output_list)
+    #     },
+    #     'features': features
+    #     # ,
+    #     # 'bbox':[east, south, west, north]
+    #     # "bbox": [-179.8958, -57.9362, -3.5, 179.6794, 70.8135, 609.69]
+    # }
+    
+    session.close()
+    return (
+        jsonify(output_list)
+    )
+
+
+
 
 
 

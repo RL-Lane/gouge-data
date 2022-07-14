@@ -1,10 +1,13 @@
 var kaggleMakeUrl = "api/v1.0/kaggle/makes"
 
+// api/v1.0/scraped/msrp/<make>/<model> 
 d3.json(kaggleMakeUrl).then((data) => {
   // console.log(data.names)
 
   let dropdown = d3.select("#sel_kaggle_make");
   let dropdown2 = d3.select("#sel_kaggle_make2");
+  
+
 
   data.make.forEach((id) => {
       // console.log(id);
@@ -44,7 +47,7 @@ function BuildCharts(selected) {
       // console.log(data)
       results = data.filter(a => a.model !== '0').filter(a => a.avg_msrp > 1000);
 
-      // console.log(results);
+      //console.log(results);
 
       let avg_msrp = [];
       let model = [];
@@ -73,7 +76,7 @@ function BuildCharts(selected) {
         // msrp_money.push(formatter.format(results[i].avg_msrp));
       }
 
-      // console.log(avg_msrp);
+      //console.log(avg_msrp);
       // console.log(model);
       // console.log(count);
       // console.log(body_style);
@@ -307,6 +310,96 @@ function BuildCharts2(selected) {
           }
       
       Plotly.newPlot("bar2", databar, bar_layout)
+      
+
+
+
+
+        
+  })
+
+
+
+}
+let scraped_url = ("/api/v1.0/scraped/msrp/<make>")
+
+
+function BuildCharts3(selected) {
+  scrapedQuery = scraped_url + '/' + selected.toString();
+  // console.log(KaggleSelectQuery);
+  // load data for charting
+  d3.json(scrapedQuery).then((data) => {
+      console.log(data)
+      results = data;
+
+      // console.log(results);
+
+      let avg_msrp_list = [];
+      let model_list = [];
+      let avg_dealerprice_list = [];
+      let make_list = [];
+      
+
+
+
+      for (let i = 0; i < results.length; i++) {
+        avg_msrp_list.push(results[i].msrp);
+        model_list.push(results[i].model);
+        avg_dealerprice_list.push(results[i].dealer_price);
+        make_list.push(results[i].make);
+        console.log(`hello${make_list}`)
+        // msrp_money.push(formatter.format(results[i].avg_msrp));
+      }
+
+      // console.log(avg_msrp);
+      // console.log(model);
+      // console.log(count);
+      // console.log(body_style);
+
+
+      // test outputs
+      // console.log(results);
+      // console.log(results[0].otu_ids.slice(0,10));
+      // console.log(results[0].otu_labels);
+      // console.log(results[0].sample_values.slice(0,10));
+
+      // Create our number formatter.
+
+
+
+      // bar chart of top 10 samples
+      // deal with color scale issues
+      // let colormin = Math.min.apply(null, avg_msrp);
+      // let colormax = Math.max.apply(null, avg_msrp);
+      // console.log(colormin);
+      // console.log(colormax);
+      // let colorlist = [];
+      // for (let i=0; i < avg_msrp.length; i++) {
+      //   colorlist.push( (avg_msrp[[i]] - colormin) / colormax  );
+      // }
+      // console.log(colorlist);
+
+      // bar chart of top 10 samples
+
+      var dealerPriceBar = {
+        x: make_list,
+        y: avg_dealerprice,
+        name: 'SF Zoo',
+        type: 'bar'
+      };
+      
+      var msrpBar = {
+        x: make_list,
+        y: avg_msrp,
+        name: 'LA Zoo',
+        type: 'bar'
+      };
+      
+      var data = [dealerPriceBar, msrpBar];
+      
+      var layout = {barmode: 'group'};
+      
+      Plotly.newPlot('bar3', data, layout);
       
 
 
