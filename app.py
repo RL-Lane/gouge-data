@@ -53,18 +53,19 @@ def welcome():
     return (
         f"<h2>Available Routes:<h2/><hr>"
         
-        f"<h4>Return first 1,000 of all kaggle results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
-        f"<h4>Returns all unique makes in kaggle:</h4><a href='/api/v1.0/kaggle/makes'>/api/v1.0/kaggle/makes</a><br/><hr><br>"
-        f"<h4>Returns summary data for a single make in Kaggle Data:</h4> /api/v1.0/kaggle/makes/&lt;brand&gt;<br/><br>\
-            Brand must exist in above referenced makes list<hr>"
+        f"<h4>1: Return first 1,000 of all kaggle results:</h4><a href='/api/v1.0/kaggle'>/api/v1.0/kaggle</a><br/><hr><br>"
+        f"<h4>2: Returns all unique makes in kaggle:</h4><a href='/api/v1.0/kaggle/makes'>/api/v1.0/kaggle/makes</a><br/><hr><br>"
+        f"<h4>3: Returns summary data for a single make in Kaggle Data:</h4> /api/v1.0/kaggle/makes/&lt;brand&gt;<br/><br>\
+            Brand must exist in #2<hr>"
 
 
-        f"<h4>Returns all results from Cargurus Scraped Data:<h4><a href='/api/v1.0/scraped'>/api/v1.0/scraped</a><br/><hr><br>"
-        f"<h4>Returns all unique makes in Cargurus Scraped Data:</h4><a href='/api/v1.0/scraped/makes'>/api/v1.0/scraped/makes</a><br/><hr><br>"
-        f"<h4>Returns summary data for a single make in Cargurus Scraped Data:</h4> /api/v1.0/scraped/makes/&lt;brand&gt;<br/><br>\
-            Brand must exist in above referenced makes list<hr>"
-        f"<h4>Returns gouge score for all dealers:<h4><a href='/api/v1.0/scraped/gouge'>/api/v1.0/scraped/gouge</a><br/><hr><br>"
-       
+        f"<h4>4: Returns all results from Cargurus Scraped Data:<h4><a href='/api/v1.0/scraped'>/api/v1.0/scraped</a><br/><hr><br>"
+        f"<h4>5: Returns all unique makes in Cargurus Scraped Data:</h4><a href='/api/v1.0/scraped/makes'>/api/v1.0/scraped/makes</a><br/><hr><br>"
+        f"<h4>6: Returns summary data for a single make in Cargurus Scraped Data:</h4> /api/v1.0/scraped/makes/&lt;brand&gt;<br/><br>\
+            Brand must exist in #5<hr>"
+        f"<h4>7: Returns gouge score for all dealers:<h4><a href='/api/v1.0/scraped/gouge'>/api/v1.0/scraped/gouge</a><br/><hr><br>"
+        f"<h4>8: Returns summary data for a single make in Cargurus Scraped Data:</h4> /api/v1.0/scraped/msrp/&lt;make&gt;<br/><br>\
+            Brand must exist in #5<hr>"
     )
 
 # &lt; = <
@@ -643,7 +644,7 @@ def msrpchart(make):
             AVG(msrp) AS 'msrp'\
         FROM car_scrape \
         WHERE make = '{make}'\
-        GROUP BY make\
+        GROUP BY model\
         ORDER BY model").fetchall()\
    
     # inspector = inspect(scrape_engine)
