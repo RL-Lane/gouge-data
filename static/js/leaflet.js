@@ -149,8 +149,9 @@ d3.json(gougeapi).then(function (data) {
          gouge = [
           'Dealer Price < MSRP', 
           'Dealer Price = MSRP', 
-          'Dealer Price > MSRP'],
-         labels = ['<h6 style="font-size: small"> TX Dealership Gouge<br>Score Index</h6>'];
+          'Dealer Price > MSRP'
+          ],
+         labels = ['<h6 style="font-size: small"> TX Dealership Gouge<br>Score Index</h6><br><h6 class="blockquote-footer">circle size reflects scraped dealership vehicle count<hr></h6>'];
       for ( let i=0; i < gouge.length; i++) {
           labels.push( 
               '<i class="square" style="background:' + getColour(gouge[i]) + '"></i>'+ gouge[i] + '')
