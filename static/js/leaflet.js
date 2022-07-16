@@ -42,7 +42,7 @@ d3.json(gougeapi).then(function (data) {
     function onEachFeature(feature, layer) {
       layer.bindPopup(`<h3>${feature.properties.dealername}</h3><hr>
                       Vehicles Counted: ${feature.properties.count}<br>
-                      <h6 style="background-color:${getColor(feature.properties.gougescore)}">Gouge Score: ${feature.properties.gougescore}</h6>`)
+                      <h6 style="background-color:${getColor(feature.properties.gougescore)}">Gouge Score: ${Math.round(100 * feature.properties.gougescore)/100}</h6>`)
       
     }
   
@@ -136,7 +136,7 @@ d3.json(gougeapi).then(function (data) {
     function  getColour(s) {
       if (s === 'Dealer Price < MSRP')
       return '#00ff00'; //green
-      else if (s === 'Dealer Price = MSRP')
+      else if (s === 'Dealer Price ≈ MSRP')
       return '#ffff00'; //yellow
       else
       return '#ff0000' //red 
@@ -148,7 +148,7 @@ d3.json(gougeapi).then(function (data) {
       let legendDiv =  L.DomUtil.create('div', 'info legend'),
          gouge = [
           'Dealer Price < MSRP', 
-          'Dealer Price = MSRP', 
+          'Dealer Price ≈ MSRP', 
           'Dealer Price > MSRP'
           ],
          labels = ['<h6 style="font-size: small"> TX Dealership Gouge<br>Score Index</h6><br><h6 class="blockquote-footer">circle size reflects scraped dealership vehicle count<hr></h6>'];
