@@ -42,7 +42,7 @@ d3.json(gougeapi).then(function (data) {
     function onEachFeature(feature, layer) {
       layer.bindPopup(`<h3>${feature.properties.dealername}</h3><hr>
                       Vehicles Counted: ${feature.properties.count}<br>
-                      <h6 style="background-color:${getColor(feature.properties.gougescore)}">Gouge Score: ${Math.round(100 * feature.properties.gougescore)/100}</h6>`)
+                      <h4 style="background-color:${getColor(feature.properties.gougescore)}">Gouge Score: ${Math.round(100 * feature.properties.gougescore)/100}</h4>`)
       
     }
   
@@ -86,9 +86,9 @@ d3.json(gougeapi).then(function (data) {
   // matches marker colors.
 
   function getColor(d) {
-    return d > 1.02    ? '#ff0000' :
-           d > 0.98    ? '#ffff00' :
-                         '#00ff00';
+    return d > 1.02    ? '#ED2938' :
+           d > 0.98    ? '#FFE733' :
+                         '#1fc600';
   }
 
   // var depths = [30, 20, 15, 10, 5, 2.5, 0];
@@ -135,11 +135,11 @@ d3.json(gougeapi).then(function (data) {
 
     function  getColour(s) {
       if (s === 'Dealer Price < MSRP')
-      return '#00ff00'; //green
+      return getColor(0.97); //green
       else if (s === 'Dealer Price ≈ MSRP')
-      return '#ffff00'; //yellow
+      return getColor(1); //yellow
       else
-      return '#ff0000' //red 
+      return getColor(1.05); //red 
   }
 
   let legend = L.control({position: 'bottomright'});
