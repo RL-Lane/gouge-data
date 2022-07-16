@@ -13,7 +13,8 @@ from flask import (
     render_template,
     jsonify,
     request,
-    redirect)
+    redirect,
+    send_file)
 
 scrape_engine = create_engine("sqlite:///resources/scrape_db.sqlite")
 kaggle_engine = create_engine("sqlite:///resources/cis_2018.sqlite")
@@ -44,6 +45,15 @@ app.config['JSON_SORT_KEYS'] = False
 @app.route("/")
 def home():
     return render_template("index.html")
+
+#returns image file for social media previews
+@app.route('/social.jpg')
+def social_image():
+    """
+    Returns an image directly through send_file
+    """
+    image = "static/assets/img/car_climbing_sm.jpg"
+    return send_file(image, mimetype='image/jpg')
 
 # LIST ALL AVAILABLE ROUTES
 @app.route("/api")
